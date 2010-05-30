@@ -1,22 +1,24 @@
 
 #include "sql_exc.h"
 
+#include "sql_api.h"
+
 SqlException::SqlException(const char* msg){
     int l = strlen(msg) + 1;
 
-    buffer = new SQLCHAR [l];
+    buffer = new char [l];
 
-    memcpy(buffer, msg, sizeof(SQLCHAR) * l);
+    memcpy(buffer, msg, sizeof(char) * l);
 }
 
-SqlException::SqlException(const char* msg, const SqlHandle& exc){
+SqlException::SqlException(const char* msg, const SqlHandle* exc){
     // locals
     SQLSMALLINT cnt;
 
     SQLINTEGER  num;
 
     // query the number of diag records
-    switch(sapi.SQLGetDiagFieldW(exc, exc, 0, SQL_DIAG_NUMBER, &num, SQL_IS_INTEGER, &cnt)){
+    switch(sql_api.SQLGetDiagFieldW(*exc, *exc, 0, SQL_DIAG_NUMBER, &num, SQL_IS_INTEGER, &cnt)){
     case SQL_SUCCESS:
     //case SQL_SUCCESS_WITH_INFO:
         break;
@@ -24,8 +26,10 @@ SqlException::SqlException(const char* msg, const SqlHandle& exc){
         throw "SQLGetDiagField error (1)";
     }
 
-    basic_string<SQLCHAR>       buf1;
-    basic_string<SQLWCHAR>      buf2;
+    // message buffer
+    string              out(msg);
+
+    out.append(": ");
 
     for(int i = 1; i <= num; i++){
         SQLWCHAR        state[6] = {0, 0, 0, 0, 0, 0};
@@ -33,7 +37,7 @@ SqlException::SqlException(const char* msg, const SqlHandle& exc){
         SQLWCHAR        buf3[1024];
         SQLSMALLINT     sz;
 
-        switch(sapi.SQLGetDiagRecW(exc, exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
+        switch(sql_api.SQLGetDiagRecW(exc, exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
         case SQL_SUCCESS:
         //case SQL_SUCCESS_WITH_INFO:
             break;
@@ -44,21 +48,15 @@ SqlException::SqlException(const char* msg, const SqlHandle& exc){
         basic_string<SQLWCHAR>  b_state(state);
         basic_string<SQLWCHAR>  b_buf(buf3);
 
-        buf2.append(L"\n  ");
-        buf2.append(b_state);
-        buf2.append(L"  ");
-        buf2.append(b_buf);
+        out.append("\n  ");
+        out.append(b_state.begin(), b_state.end());
+        out.append("  ");
+        out.append(b_buf.begin(), b_buf.end());
     }
 
-    string      m(msg);
-    m.append(": ");
-
-    buf1.append(m.begin(), m.end());
-    buf1.append(buf2.begin(), buf2.end());
-
-    int l = buf1.size() + 1;
-    buffer = new SQLCHAR [l];
-    std::copy(buf1.begin(), buf1.end(), buffer);
+    int l = out.size() + 1;
+    buffer = new char [l];
+    std::copy(out.begin(), out.end(), buffer);
 
     buffer[l-1] = '\0';
 }
@@ -68,7 +66,7 @@ SqlException::SqlException(const char* msg, const SqlHandle& exc){
 }
 
 
-SQLCHAR* SqlException::message() const {
+const char* SqlException::message() const {
     return buffer;
 }
 
