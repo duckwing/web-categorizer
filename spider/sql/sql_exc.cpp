@@ -2,6 +2,7 @@
 #include "sql_exc.h"
 
 #include "sql_api.h"
+#include "../common/utils.h"
 
 SqlException::SqlException(const char* msg){
     int l = strlen(msg) + 1;

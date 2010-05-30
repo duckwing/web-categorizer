@@ -40,5 +40,11 @@ public:
 
 extern SqlApi       sql_api;
 
+#include "sql_handle.h"
+#include "sql_exc.h"
+#include "sql_env.h"
+#include "sql_conn.h"
+#include "sql_stmt.h"
+
 #endif // __SQL_API_H__
 
