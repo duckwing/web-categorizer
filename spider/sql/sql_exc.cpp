@@ -4,6 +4,9 @@
 #include "sql_api.h"
 #include "../common/utils.h"
 
+
+#include <sstream>
+
 SqlException::SqlException(const char* msg){
     int l = strlen(msg) + 1;
 
@@ -31,6 +34,12 @@ SqlException::SqlException(const char* msg, const SqlHandle* exc){
     string              out(msg);
 
     out.append(": ");
+
+    {
+        ostringstream   oss;
+        oss << "(" << num << ")";
+        out.append(oss.str());
+    }
 
     for(int i = 1; i <= num; i++){
         SQLWCHAR        state[6] = {0, 0, 0, 0, 0, 0};
