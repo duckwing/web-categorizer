@@ -7,6 +7,10 @@ CLASSES *= common/sql
 
 CLASSES *= sql/sql_api
 CLASSES *= sql/sql_handle
+CLASSES *= sql/sql_exc
+CLASSES *= sql/sql_env
+CLASSES *= sql/sql_conn
+CLASSES *= sql/sql_stmt
 
 HEADER *= sql/sqlapi.in
 

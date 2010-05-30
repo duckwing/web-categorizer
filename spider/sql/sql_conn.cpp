@@ -1,6 +1,8 @@
 
 #include "sql_conn.h"
 
+#include "../common/utils.h"
+
 SqlConn::SqlConn(const SqlEnv& env) : SqlHandle(0, SQL_HANDLE_DBC) {
     SQLRETURN   rc;
 
