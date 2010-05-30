@@ -3,7 +3,8 @@
 TEMPLATE = app
 TARGET = diffuse
 
-CLASSES *= common/sql
+CLASSES *= common/utils
+CLASSES *= common/entry
 
 CLASSES *= sql/sql_api
 CLASSES *= sql/sql_handle
