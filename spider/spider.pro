@@ -29,6 +29,8 @@ CONFIG *= exceptions stl mmx sse
 ####### output files
 OBJECTS_DIR = obj
 
+MOC_DIR = $${OBJECTS_DIR}
+
 DESTDIR = ..
 
 ####### the option for generating the map file
