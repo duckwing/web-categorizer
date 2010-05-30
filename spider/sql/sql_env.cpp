@@ -2,8 +2,6 @@
 #include "sql_env.h"
 
 SqlEnv::SqlEnv() : SqlHandle(0, SQL_HANDLE_ENV) {
-    SQLHANDLE   h;
-
     switch (sql_api.SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &handle)){
         case SQL_SUCCESS: case SQL_SUCCESS_WITH_INFO: break;
         default: throw "SQLAllocHandle(SQL_HANDLE_ENV) failed";
@@ -13,10 +11,10 @@ SqlEnv::SqlEnv() : SqlHandle(0, SQL_HANDLE_ENV) {
 }
 
 
-SQLRETURN SqlEnv::set_attr(SQLINTEGER attr, SQLPOINTER value, SQLINTEGER len = 0){
+SQLRETURN SqlEnv::set_attr(SQLINTEGER attr, SQLPOINTER value, SQLINTEGER len){
     SQLRETURN rc;
 
-    SQLAPI(SQLSetEnvAttr, (*this, attr, value, len), *this);
+    SQLAPI(SQLSetEnvAttr, (*this, attr, value, len), this);
 
     return rc;
 }

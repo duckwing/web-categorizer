@@ -38,7 +38,7 @@ SqlException::SqlException(const char* msg, const SqlHandle* exc){
         SQLWCHAR        buf3[1024];
         SQLSMALLINT     sz;
 
-        switch(sql_api.SQLGetDiagRecW(exc, exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
+        switch(sql_api.SQLGetDiagRecW(*exc, *exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
         case SQL_SUCCESS:
         //case SQL_SUCCESS_WITH_INFO:
             break;
@@ -62,7 +62,7 @@ SqlException::SqlException(const char* msg, const SqlHandle* exc){
     buffer[l-1] = '\0';
 }
 
-~SqlException::SqlException(){
+SqlException::~SqlException(){
     delete [] buffer;
 }
 

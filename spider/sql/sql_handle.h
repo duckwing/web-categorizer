@@ -4,6 +4,8 @@
 
 #include "sql_api.h"
 
+#include "sql_exc.h"
+
 //////////////////////////////
 // handles
 //
@@ -18,7 +20,7 @@ public:
 
     inline ~SqlHandle(){
         SQLRETURN   rc;
-        SQLAPI(SQLFreeHandle, (type, handle), *this);
+        SQLAPI(SQLFreeHandle, (type, handle), this);
     }
 
     inline operator SQLHANDLE () const {

@@ -1,5 +1,5 @@
 
-#include "sqlapi.h"
+#include "sql_api.h"
 
 
 SqlApi       sql_api;
@@ -9,8 +9,8 @@ SqlApi       sql_api;
 
 
 void SqlApi::init(){
-    HMODULE m = LoadLibrary("modbc.dll");
-    LPVOID  p, *pp;
+    HMODULE m = LoadLibraryW(L"modbc.dll");
+    //LPVOID  p, *pp;
 
     if(m == NULL){
         throw "LoadLibrary(modbc.dll) failed";

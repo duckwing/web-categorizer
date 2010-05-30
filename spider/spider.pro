@@ -1,7 +1,7 @@
 
 ####### general configuration
 TEMPLATE = app
-TARGET = diffuse
+TARGET = spider
 
 CLASSES *= common/utils
 CLASSES *= common/entry

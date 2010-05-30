@@ -40,6 +40,12 @@ public:
 
 extern SqlApi       sql_api;
 
+class SqlHandle;
+class SqlException;
+class SqlEnv;
+class SqlConn;
+class SqlStmt;
+
 #include "sql_handle.h"
 #include "sql_exc.h"
 #include "sql_env.h"
