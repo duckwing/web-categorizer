@@ -5,10 +5,20 @@
 
 #include "../sql/sql_api.h"
 
-int main(){
+#include "../web/web.h"
+
+int main(int argc, char** argv){
 
     try {
 
+        CWeb                web(argc, argv);
+
+        QCoreApplication::exec();
+
+        cout << "leave" << endl;
+
+
+#if 0
         sql_api.init();
 
         SqlEnv      env;
@@ -36,6 +46,7 @@ int main(){
 
             cout << endl;
         }
+#endif
     }
     catch(SqlException e){
         cout << "ERROR: " << e.message() << endl;

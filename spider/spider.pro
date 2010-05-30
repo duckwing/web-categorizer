@@ -13,12 +13,17 @@ CLASSES *= sql/sql_env
 CLASSES *= sql/sql_conn
 CLASSES *= sql/sql_stmt
 
+CLASSES *= web/web
+
 HEADER *= sql/sqlapi.in
 
 #error($$CONFIG)
 
+QT -= gui
+QT += network
+
 CONFIG = debug warn_on
-CONFIG *= console
+CONFIG *= console qt
 CONFIG *= exceptions stl mmx sse
 
 ####### output files
