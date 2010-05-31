@@ -7,9 +7,6 @@
 #include <sqlext.h>
 
 
-#define PSQL_CONN_STRING        L"DRIVER={Mammoth ODBCng Beta};SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
-
-
 
 #define SQLAPI(api, params, handle)    \
     switch(rc = api params){        \

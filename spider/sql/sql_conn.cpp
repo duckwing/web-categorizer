@@ -3,6 +3,9 @@
 
 #include "../common/utils.h"
 
+#define PSQL_CONN_STRING        L"DRIVER=ODBCng;SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
+
+
 SqlConn::SqlConn(const SqlEnv& env) : SqlHandle(0, SQL_HANDLE_DBC) {
     SQLRETURN   rc;
 
