@@ -17,9 +17,8 @@ CWeb::CWeb( int & argc, char ** argv ) :
 
 {
     // setup network
-    netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
-
     netman.setProxy(netproxy);
+    //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
 
     // about-to-quit signal
     connect(this, SIGNAL(aboutToQuit()), SLOT(aboutToQuit()));
@@ -31,7 +30,12 @@ CWeb::CWeb( int & argc, char ** argv ) :
 }
 
 void CWeb::timeout(){
-    cout << "Error: " << netreply->errorString().toAscii().data() << endl;
+    cout << "Error: " << netreply->error() << " " <<
+        netreply->errorString().toAscii().data() << endl;
+
+    cout << "Code: " << netreply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << endl;
+
+    cout << netreply->readAll().data() << endl;
 
     QCoreApplication::quit();
 }
