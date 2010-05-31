@@ -3,7 +3,7 @@
 
 #include "../common/utils.h"
 
-#define PSQL_CONN_STRING        L"DRIVER=ODBCng;SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
+#define PSQL_CONN_STRING        L"DRIVER=PostgreSQL;SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
 
 
 SqlConn::SqlConn(const SqlEnv& env) : SqlHandle(0, SQL_HANDLE_DBC) {
@@ -16,7 +16,7 @@ SqlConn::SqlConn(const SqlEnv& env) : SqlHandle(0, SQL_HANDLE_DBC) {
 
     SQLAPI(SQLDriverConnectW, (*this, NULL, (SQLWCHAR*)PSQL_CONN_STRING, SQL_NTS, buffer, sizeof_a(buffer), &sz, SQL_DRIVER_NOPROMPT), this);
 
-    wprintf(L"Connection string: %s\n", buffer);
+    if(0) wprintf(L"Connection string: %s\n", buffer);
 
 }
 

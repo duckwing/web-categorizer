@@ -48,21 +48,12 @@ int main(int argc, char** argv){
 
                 cout << "out" << endl;
 
-                SQLCHAR     buf[13];
+                SQLCHAR     buf[5];
                 SQLINTEGER  len;
                 SQLRETURN   rc;
 
-                int i = 0;
-
-                memset(buf, 0, sizeof(buf));
-
                 while((rc = st.get_data(2, SQL_C_CHAR, buf, sizeof(buf), &len)) != SQL_NO_DATA){
-                    cout << "in " << rc << " " << len << ": " << (char*)buf << endl;
-                    //if(rc == 1) st.raise_exception();
-                    str.append(buf, buf + len);
-
-                    if((i++) > 10) break;
-
+                    str.append((char*)buf);
                 }
 
                 cout << id << " " << str << endl;
