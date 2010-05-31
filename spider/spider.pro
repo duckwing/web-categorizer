@@ -22,6 +22,8 @@ HEADER *= sql/sqlapi.in
 QT -= gui
 QT += network
 
+QMAKE_LIBS += libodbc32
+
 CONFIG = debug warn_on
 CONFIG *= console
 CONFIG *= exceptions stl mmx sse

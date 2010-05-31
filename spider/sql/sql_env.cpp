@@ -2,7 +2,7 @@
 #include "sql_env.h"
 
 SqlEnv::SqlEnv() : SqlHandle(0, SQL_HANDLE_ENV) {
-    switch (sql_api.SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &handle)){
+    switch (SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &handle)){
         case SQL_SUCCESS: case SQL_SUCCESS_WITH_INFO: break;
         default: throw "SQLAllocHandle(SQL_HANDLE_ENV) failed";
     }

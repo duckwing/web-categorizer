@@ -20,10 +20,17 @@ int main(int argc, char** argv){
 #endif
 
 
-        sql_api.init();
+        //sql_api.init();
+
+        cout << "env" << endl;
 
         SqlEnv      env;
+
+        cout << "dbc" << endl;
+
         SqlConn     dbc(env);
+
+        cout << "st" << endl;
 
         SqlStmt     st(dbc);
 

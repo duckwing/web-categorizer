@@ -7,12 +7,12 @@
 #include <sqlext.h>
 
 
-#define PSQL_CONN_STRING        L"DRIVER=ODBCng;SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
+#define PSQL_CONN_STRING        L"DRIVER={Mammoth ODBCng Beta};SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
 
 
 
 #define SQLAPI(api, params, handle)    \
-    switch(rc = sql_api. api params){        \
+    switch(rc = api params){        \
     case SQL_INVALID_HANDLE:        \
         throw SqlException(#api #params ": invalid handle");    \
     case SQL_ERROR:                 \
@@ -38,7 +38,7 @@ public:
 
 };
 
-extern SqlApi       sql_api;
+//extern SqlApi       sql_api;
 
 class SqlHandle;
 class SqlException;

@@ -22,7 +22,7 @@ SqlException::SqlException(const char* msg, const SqlHandle* exc){
     SQLINTEGER  num;
 
     // query the number of diag records
-    switch(sql_api.SQLGetDiagFieldW(*exc, *exc, 0, SQL_DIAG_NUMBER, &num, SQL_IS_INTEGER, &cnt)){
+    switch(SQLGetDiagFieldW(*exc, *exc, 0, SQL_DIAG_NUMBER, &num, SQL_IS_INTEGER, &cnt)){
     case SQL_SUCCESS:
     //case SQL_SUCCESS_WITH_INFO:
         break;
@@ -47,7 +47,7 @@ SqlException::SqlException(const char* msg, const SqlHandle* exc){
         SQLWCHAR        buf3[1024];
         SQLSMALLINT     sz;
 
-        switch(sql_api.SQLGetDiagRecW(*exc, *exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
+        switch(SQLGetDiagRecW(*exc, *exc, i, state, &native, buf3, sizeof_a(buf3), &sz)){
         case SQL_SUCCESS:
         //case SQL_SUCCESS_WITH_INFO:
             break;
