@@ -19,12 +19,28 @@ int main(int argc, char** argv){
 #endif
 
         SqlEnv      env;
-
         SqlConn     dbc(env);
+
+        try {
+            dbc.connect();
+        }catch(SqlException e){
+            const char* codes = e.codes();
+            if(strcmp(codes, "08001")){
+                throw e;
+            }
+            codes += 6;
+            if(*codes){
+                throw e;
+            }
+
+            cout << "Cannot connect" << endl;
+
+            return -1;
+        }
 
         SqlStmt     st(dbc);
 
-        st.direct(L"SELECT id, url FROM urls");
+        st.direct(L"SELECT id, url FROM urls2");
 
         {
             SQLINTEGER      id;

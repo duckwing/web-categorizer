@@ -5,10 +5,14 @@
 #include "sql_api.h"
 
 class SqlConn : public SqlHandle {
+private:
+    bool        connected;
 public:
     SqlConn(const SqlEnv& env);
 
     ~SqlConn();
+
+    void connect();
 };
 
 #endif // __SQL_CONN_H__
