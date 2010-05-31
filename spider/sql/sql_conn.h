@@ -13,6 +13,7 @@ public:
     ~SqlConn();
 
     void connect();
+    void disconnect();
 };
 
 #endif // __SQL_CONN_H__

@@ -32,3 +32,12 @@ void SqlConn::connect(){
     connected = true;
 }
 
+void SqlConn::disconnect(){
+    if(connected){
+        SQLRETURN   rc;
+        SQLAPI(SQLDisconnect, (*this), this);
+
+        connected = false;
+    }
+}
+
