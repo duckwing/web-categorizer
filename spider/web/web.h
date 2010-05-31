@@ -1,6 +1,8 @@
 
-#if !defined(__WEB_H__) && defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+#ifndef __WEB_H__
 #define __WEB_H__
+
+#if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 
 #include <QtCore/QCoreApplication>
 
@@ -22,6 +24,7 @@ private slots:
     void aboutToQuit();
 };
 
+#endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 #endif // __WEB_H__
 
 
