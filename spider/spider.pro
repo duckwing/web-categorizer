@@ -23,7 +23,7 @@ QT -= gui
 QT += network
 
 CONFIG = debug warn_on
-CONFIG *= console qt
+CONFIG *= console
 CONFIG *= exceptions stl mmx sse
 
 ####### output files

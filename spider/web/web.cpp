@@ -1,4 +1,6 @@
 
+#if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+
 #include "web.h"
 
 #include "../common/utils.h"
@@ -27,4 +29,7 @@ void CWeb::timeout(){
 void CWeb::aboutToQuit(){
     cout << "about to quit" << endl;
 }
+
+#endif
+
 

@@ -1,5 +1,5 @@
 
-#ifndef __WEB_H__
+#if !defined(__WEB_H__) && defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 #define __WEB_H__
 
 #include <QtCore/QCoreApplication>
