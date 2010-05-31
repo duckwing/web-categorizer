@@ -8,13 +8,24 @@
 
 #include <QtCore/QTimer>
 
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkRequest>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkProxy>
+
 
 class CWeb : public QCoreApplication {
     Q_OBJECT
 
 private:
-    QTimer      timer;
-    int         cnt;
+
+    QNetworkAccessManager       netman;
+    QNetworkProxy               netproxy;
+
+    QNetworkReply               *netreply;
+
+    QTimer                      timer;
+    int                         cnt;
 
 public:
     CWeb ( int & argc, char ** argv );

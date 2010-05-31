@@ -25,7 +25,7 @@ QT += network
 QMAKE_LIBS += libodbc32
 
 CONFIG = debug warn_on
-CONFIG *= console
+CONFIG *= console qt
 CONFIG *= exceptions stl mmx sse
 
 ####### output files
