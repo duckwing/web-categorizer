@@ -20,17 +20,11 @@ int main(int argc, char** argv){
 #endif
 
 
-        //sql_api.init();
-
-        cout << "env" << endl;
+        // sql_api.init();
 
         SqlEnv      env;
 
-        cout << "dbc" << endl;
-
         SqlConn     dbc(env);
-
-        cout << "st" << endl;
 
         SqlStmt     st(dbc);
 
@@ -41,19 +35,21 @@ int main(int argc, char** argv){
 
             st.bindcol(1, SQL_C_SLONG, &id, 0, NULL);
 
-            cout << "data:";
+            cout << "data:" << endl;
 
             while(st.fetch() != SQL_NO_DATA){
                 string      str;
 
-                cout << "out" << endl;
-
-                SQLCHAR     buf[5];
+                SQLCHAR     buf[3];
                 SQLINTEGER  len;
                 SQLRETURN   rc;
 
                 while((rc = st.get_data(2, SQL_C_CHAR, buf, sizeof(buf), &len)) != SQL_NO_DATA){
-                    str.append((char*)buf);
+                    SQLINTEGER  lenmax = sizeof_a(buf) - 1;
+                    if((len > lenmax) || (len == SQL_NO_TOTAL)) len = lenmax;
+
+                    //cout << len << endl;
+                    str.append(buf, buf + lenmax);
                 }
 
                 cout << id << " " << str << endl;
