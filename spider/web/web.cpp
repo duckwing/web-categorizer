@@ -4,7 +4,11 @@
 
 #include "../common/utils.h"
 
+#include "../sql/sql_api.h"
+
 #if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+
+#include <QtCore/QFile>
 
 CWeb::CWeb( int & argc, char ** argv ) :
     QCoreApplication ( argc, argv ),
@@ -20,27 +24,45 @@ CWeb::CWeb( int & argc, char ** argv ) :
     netman.setProxy(netproxy);
     //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
 
+    // setup timer
+    timer.start(2000);
+    connect(&timer, SIGNAL(timeout()), SLOT(scheduler()));
+
     // about-to-quit signal
     connect(this, SIGNAL(aboutToQuit()), SLOT(aboutToQuit()));
 
     //
-    netreply = netman.get(QNetworkRequest(QUrl("http://tut.by/")));
-
-    connect(netreply, SIGNAL(finished()), SLOT(timeout()));
+    //netreply = netman.get(QNetworkRequest(QUrl("http://tut.by/")));
 }
 
-void CWeb::timeout(){
+void CWeb::scheduler(){
+    // check for exit file
+    {
+        QFile       efile("spider_stop");
+
+        if(efile.exists()){
+            QCoreApplication::quit();
+        }
+    }
+
+    cout << "timer" << endl;
+
+    SqlEnv      env;
+
+    SqlConn     dbc(env);
+
+    /*
     cout << "Error: " << netreply->error() << " " <<
         netreply->errorString().toAscii().data() << endl;
 
     cout << "Code: " << netreply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << endl;
 
     cout << netreply->readAll().data() << endl;
-
-    QCoreApplication::quit();
+    */
 }
 
 void CWeb::aboutToQuit(){
+    cout << "quit" << endl;
 }
 
 #endif

@@ -31,7 +31,8 @@ public:
     CWeb ( int & argc, char ** argv );
 
 private slots:
-    void timeout();
+    void scheduler();
+
     void aboutToQuit();
 };
 

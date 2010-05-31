@@ -11,14 +11,12 @@ int main(int argc, char** argv){
 
     try {
 
+#if 0
         CWeb                web(argc, argv);
 
         QCoreApplication::exec();
 
-
-
-#if 0
-        // sql_api.init();
+#endif
 
         SqlEnv      env;
 
@@ -54,7 +52,6 @@ int main(int argc, char** argv){
             }
 
         }
-#endif
     }
     catch(SqlException e){
         cout << "ERROR: " << e.message() << endl;
