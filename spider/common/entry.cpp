@@ -27,22 +27,38 @@ int main(int argc, char** argv){
 
         SqlStmt     st(dbc);
 
-        st.direct(L"SELECT id FROM pages");
+        st.direct(L"SELECT id, url FROM urls");
 
         {
             SQLINTEGER      id;
-            SQLLEN          id_ind;
 
-            st.bindcol(1, SQL_C_SLONG, &id, 0, &id_ind);
+            st.bindcol(1, SQL_C_SLONG, &id, 0, NULL);
 
             cout << "data:";
 
             while(st.fetch() != SQL_NO_DATA){
-                if(id_ind == SQL_NULL_DATA){
-                    cout << " NULL";
-                }else{
-                    cout << " " << id;
+                string      str;
+
+                cout << "out" << endl;
+
+                SQLCHAR     buf[13];
+                SQLINTEGER  len;
+                SQLRETURN   rc;
+
+                int i = 0;
+
+                memset(buf, 0, sizeof(buf));
+
+                while((rc = st.get_data(2, SQL_C_CHAR, buf, sizeof(buf), &len)) != SQL_NO_DATA){
+                    cout << "in " << rc << " " << len << ": " << (char*)buf << endl;
+                    //if(rc == 1) st.raise_exception();
+                    str.append(buf, buf + len);
+
+                    if((i++) > 10) break;
+
                 }
+
+                cout << id << " " << str << endl;
             }
 
             cout << endl;

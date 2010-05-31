@@ -38,6 +38,15 @@ SQLRETURN SqlStmt::direct(SQLWCHAR* text){
     return rc;
 }
 
+
+// long data
+
+SQLRETURN SqlStmt::get_data(SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType, SQLPOINTER TargetValuePtr, SQLINTEGER BufferLength, SQLINTEGER *StrLen_or_IndPtr){
+    SQLRETURN   rc;
+    SQLAPI(SQLGetData, (*this, ColumnNumber, TargetType, TargetValuePtr, BufferLength, StrLen_or_IndPtr), this);
+    return rc;
+}
+
 // utils
 
 SQLRETURN SqlStmt::bind_param_offset(SQLINTEGER* ptr){

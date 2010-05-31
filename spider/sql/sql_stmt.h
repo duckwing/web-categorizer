@@ -21,6 +21,10 @@ public:
     SQLRETURN fetch();
     SQLRETURN direct(SQLWCHAR* text);
 
+    // long data
+
+    SQLRETURN get_data(SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType, SQLPOINTER TargetValuePtr, SQLINTEGER BufferLength, SQLINTEGER *StrLen_or_IndPtr); 
+
     // utils
     
     SQLRETURN bind_param_offset(SQLINTEGER* ptr);

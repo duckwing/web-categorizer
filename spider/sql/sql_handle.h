@@ -30,6 +30,10 @@ public:
     inline operator SQLSMALLINT () const {
         return type;
     }
+
+    inline void raise_exception(){
+        throw SqlException("raise_exception", this);
+    }
 };
 
 
