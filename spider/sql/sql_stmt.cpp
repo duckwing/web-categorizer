@@ -16,6 +16,14 @@ SQLRETURN SqlStmt::bindcol(SQLUSMALLINT ColumnNumber, SQLSMALLINT TargetType, SQ
     return rc;
 }
 
+// attributes
+
+SQLRETURN SqlStmt::set_attr(SQLINTEGER attr, SQLPOINTER ptr, SQLINTEGER len){
+    SQLRETURN   rc;
+    SQLAPI(SQLSetStmtAttr, (*this, attr, ptr, len), this);
+    return rc;
+}
+
 // statement
 
 SQLRETURN SqlStmt::fetch(){
@@ -28,5 +36,15 @@ SQLRETURN SqlStmt::direct(SQLWCHAR* text){
     SQLRETURN   rc;
     SQLAPI(SQLExecDirectW, (*this, text, SQL_NTS), this);
     return rc;
+}
+
+// utils
+
+SQLRETURN SqlStmt::bind_param_offset(SQLINTEGER* ptr){
+    return this->set_attr(SQL_ATTR_PARAM_BIND_OFFSET_PTR, ptr, SQL_IS_POINTER);
+}
+
+SQLRETURN SqlStmt::bind_row_offset(SQLINTEGER* ptr){
+    return this->set_attr(SQL_ATTR_ROW_BIND_OFFSET_PTR, ptr, SQL_IS_POINTER);
 }
 
