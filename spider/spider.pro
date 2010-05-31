@@ -3,8 +3,9 @@
 TEMPLATE = app
 TARGET = spider
 
-CLASSES *= common/utils
-CLASSES *= common/entry
+CLASSES *= web/entry
+CLASSES *= web/utils
+CLASSES *= web/web
 
 CLASSES *= sql/sql_api
 CLASSES *= sql/sql_handle
@@ -12,8 +13,6 @@ CLASSES *= sql/sql_exc
 CLASSES *= sql/sql_env
 CLASSES *= sql/sql_conn
 CLASSES *= sql/sql_stmt
-
-CLASSES *= web/web
 
 HEADER *= sql/sqlapi.in
 

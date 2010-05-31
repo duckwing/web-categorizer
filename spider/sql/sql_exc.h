@@ -7,7 +7,9 @@ class SqlHandle;
 class SqlException {
 private:
     char        *buffer;
+
     char        *codebuf;
+    long int    codenum;
 
 public:
     SqlException(const char* msg);
@@ -17,7 +19,9 @@ public:
     ~SqlException();
 
     const char* message() const ;
-    const char* codes() const ;
+
+    const char* operator [] (int i) const;
+
 };
 
 #include "sql_api.h"

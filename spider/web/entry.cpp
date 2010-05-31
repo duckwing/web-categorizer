@@ -24,18 +24,11 @@ int main(int argc, char** argv){
         try {
             dbc.connect();
         }catch(SqlException e){
-            const char* codes = e.codes();
-            if(strcmp(codes, "08001")){
-                throw e;
+            if(e[0] && (e[1] == 0) && !strcmp(e[0], "08001")){
+                cout << "Cannot connect" << endl;
+                return -1;
             }
-            codes += 6;
-            if(*codes){
-                throw e;
-            }
-
-            cout << "Cannot connect" << endl;
-
-            return -1;
+            throw e;
         }
 
         SqlStmt     st(dbc);

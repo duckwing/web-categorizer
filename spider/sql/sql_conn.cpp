@@ -1,7 +1,7 @@
 
 #include "sql_conn.h"
 
-#include "../common/utils.h"
+#include "../web/utils.h"
 
 #define PSQL_CONN_STRING        L"DRIVER=PostgreSQL;SERVER=localhost;UID=spider;PORT=5432;DATABASE=postgres"
 
