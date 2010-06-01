@@ -38,8 +38,8 @@ bool CDbc::event(QEvent* e){
 
         web->moveToThread(&worker);
 
-        connect(this, SIGNAL(worker_send()), web, SLOT(incoming()));
-        connect(this, SIGNAL(worker_die()),  web, SLOT(die()));
+        connect(this, SIGNAL(worker_send(SRequest*)), web, SLOT(request(SRequest*)));
+        connect(this, SIGNAL(worker_die()),           web, SLOT(die()));
     }
 
     // set up timer
@@ -68,18 +68,14 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    if(cnt % 3 == 0) emit worker_send();
+    SRequest*    req = new SRequest;
 
-    if(cnt > 20) emit worker_die();
+    req->url = "http://tut.by/";
 
-    /*
-    cout << "Error: " << netreply->error() << " " <<
-        netreply->errorString().toAscii().data() << endl;
+    if(cnt % 3 == 0) emit worker_send(req);
 
-    cout << "Code: " << netreply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << endl;
+    if(cnt >= 10) emit worker_die();
 
-    cout << netreply->readAll().data() << endl;
-    */
 }
 
 void CDbc::worker_finished(){

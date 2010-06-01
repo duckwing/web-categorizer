@@ -9,6 +9,7 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
 
+#include "request.h"
 
 class CWeb : public QObject {
     Q_OBJECT
@@ -21,10 +22,18 @@ private:
 public:
     CWeb ();
 
+    // children's interface
+    QNetworkAccessManager& manager();
+
+    void request_completed(SReq* req);
+
 public slots:
-    void incoming();
+    void request(SReq* req);
 
     void die();
+
+signals:
+    void reply(SReq* req);
 };
 
 #endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)

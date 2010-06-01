@@ -22,8 +22,31 @@ CWeb::CWeb() :
     //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
 }
 
-void CWeb::incoming(){
-    cout << "incoming!!!\n";
+//
+// public
+//
+
+QNetworkAccessManager& CWeb::manager(){
+    return netman;
+}
+
+void request_completed(SReq* req){
+    // FIXME: move to the app thread instead
+    delete req->reply;
+    req->reply = 0;
+
+    // emit reply
+    emit reply(req);
+}
+
+//
+// signals
+//
+
+void CWeb::request(SRequest* data){
+    cout << "incoming!!! " << data->url << endl;
+
+    delete data;
 }
 
 void CWeb::die(){
