@@ -2,41 +2,34 @@
 #ifndef __DBC_H__
 #define __DBC_H__
 
-#if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+#if defined(QT_CORE_LIB)
 
-#include <QtCore/QCoreApplication>
-
-#include <QtCore/QThread>
-#include <QtCore/QTimer>
+#include <QtCore/QObject>
 
 #include "request.h"
 
-class CDbc : public QCoreApplication {
+class CDbc : public QObject {
     Q_OBJECT
 
 private:
 
-    QTimer          timer;
-
-    QThread         worker;
-
 public:
-    CDbc ( int & argc, char ** argv );
+    CDbc ();
 
-    virtual bool event(QEvent* e);
+public slots:
+    void start();
+    void stop();
+
+    void reply(SReq* req);
 
 private slots:
     void scheduler();
 
-    void worker_reply(SReq* req);
-    void worker_finished();
-
 signals:
-    void worker_send(SReq* data);
-    void worker_die();
+    void request(SReq* data);
 };
 
-#endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+#endif // defined(QT_CORE_LIB)
 #endif // __DBC_H__
 
 
