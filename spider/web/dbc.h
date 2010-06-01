@@ -6,6 +6,7 @@
 
 #include <QtCore/QCoreApplication>
 
+#include <QtCore/QThread>
 #include <QtCore/QTimer>
 
 
@@ -16,6 +17,8 @@ private:
 
     QTimer          timer;
 
+    QThread         worker;
+
 public:
     CDbc ( int & argc, char ** argv );
 
@@ -23,6 +26,12 @@ public:
 
 private slots:
     void scheduler();
+
+    void worker_finished();
+
+signals:
+    void worker_send();
+    void worker_die();
 };
 
 #endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)

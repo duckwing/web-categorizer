@@ -6,6 +6,8 @@
 
 #if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 
+#include "web.h"
+
 #include <QtCore/QFile>
 
 #define USER_EVENT_TYPE         QEvent::User
@@ -19,34 +21,25 @@ CDbc::CDbc( int & argc, char ** argv ) :
     QCoreApplication::postEvent(this, new QEvent(USER_EVENT_TYPE));
 }
 
-void CDbc::scheduler(){
-    // check for exit file
-    {
-        QFile       efile("spider_stop");
-
-        if(efile.exists()){
-            QCoreApplication::quit();
-        }
-    }
-
-    cout << "timer" << endl;
-
-
-    /*
-    cout << "Error: " << netreply->error() << " " <<
-        netreply->errorString().toAscii().data() << endl;
-
-    cout << "Code: " << netreply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << endl;
-
-    cout << netreply->readAll().data() << endl;
-    */
-}
-
 bool CDbc::event(QEvent* e){
     // other events are handled by the default
     // QCoreApplication event processor
     if(e->type() != USER_EVENT_TYPE){
         return QCoreApplication::event(e);
+    }
+
+    // start the worker
+    worker.start();
+    connect(&worker, SIGNAL(finished()), SLOT(worker_finished()));
+
+    // create the web object
+    {
+        CWeb* web = new CWeb();
+
+        web->moveToThread(&worker);
+
+        connect(this, SIGNAL(worker_send()), web, SLOT(incoming()));
+        connect(this, SIGNAL(worker_die()),  web, SLOT(die()));
     }
 
     // set up timer
@@ -58,6 +51,40 @@ bool CDbc::event(QEvent* e){
     return true;
 }
 
+void CDbc::scheduler(){
+    // check for exit file
+    {
+        QFile       efile("spider_stop");
+
+        if(efile.exists()){
+            emit worker_die();
+            return ;
+        }
+    }
+
+    static int cnt = 0;
+
+    cnt++;
+
+    cout << "timer" << cnt << endl;
+
+    if(cnt % 3 == 0) emit worker_send();
+
+    if(cnt > 20) emit worker_die();
+
+    /*
+    cout << "Error: " << netreply->error() << " " <<
+        netreply->errorString().toAscii().data() << endl;
+
+    cout << "Code: " << netreply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << endl;
+
+    cout << netreply->readAll().data() << endl;
+    */
+}
+
+void CDbc::worker_finished(){
+    QCoreApplication::quit();
+}
 
 #endif
 

@@ -4,17 +4,13 @@
 
 #if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 
-#include <QtCore/QCoreApplication>
-
-#include <QtCore/QTimer>
-
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
 
 
-class CWeb : public QCoreApplication {
+class CWeb : public QObject {
     Q_OBJECT
 
 private:
@@ -22,18 +18,13 @@ private:
     QNetworkAccessManager       netman;
     QNetworkProxy               netproxy;
 
-    QNetworkReply               *netreply;
-
-    QTimer                      timer;
-    int                         cnt;
-
 public:
-    CWeb ( int & argc, char ** argv );
+    CWeb ();
 
-private slots:
-    void scheduler();
+public slots:
+    void incoming();
 
-    void aboutToQuit();
+    void die();
 };
 
 #endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
