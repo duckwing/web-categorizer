@@ -13,17 +13,24 @@ class CDbc : public QObject {
 
 private:
 
+private slots:
+    void scheduler();
+
+    // public
+
 public:
     CDbc ();
+
+    // control stuff
 
 public slots:
     void start();
     void stop();
 
-    void reply(SReq* req);
+    // data exchange
 
-private slots:
-    void scheduler();
+public slots:
+    void reply(SReq* req);
 
 signals:
     void request(SReq* data);
