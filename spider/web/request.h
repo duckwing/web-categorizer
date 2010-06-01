@@ -21,19 +21,23 @@ struct SReq {
 
 ///////////////////////////
 
+class CWeb;
+
 class CRequest : public QObject {
     Q_OBJECT
  
 private:
-    SRequest*       req;
+    CWeb            *web;
+    SReq            *req;
 public:
-    CRequest(SReq* _req, QObject* _p = 0);
+    CRequest(CWeb* _web, SReq* _req);
     ~CRequest();
 
-private slots:
+public slots:
     void finished();
 };
 
+#include "web.h"
 
 #endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 

@@ -9,7 +9,7 @@
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 
-#include "data.h"
+#include "request.h"
 
 class CDbc : public QCoreApplication {
     Q_OBJECT
@@ -28,10 +28,11 @@ public:
 private slots:
     void scheduler();
 
+    void worker_reply(SReq* req);
     void worker_finished();
 
 signals:
-    void worker_send(SRequest* data);
+    void worker_send(SReq* data);
     void worker_die();
 };
 

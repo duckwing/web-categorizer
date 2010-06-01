@@ -38,8 +38,10 @@ bool CDbc::event(QEvent* e){
 
         web->moveToThread(&worker);
 
-        connect(this, SIGNAL(worker_send(SRequest*)), web, SLOT(request(SRequest*)));
-        connect(this, SIGNAL(worker_die()),           web, SLOT(die()));
+        connect(this, SIGNAL(worker_send(SReq*)), web, SLOT(request(SReq*)));
+        connect(this, SIGNAL(worker_die()),       web, SLOT(die()));
+
+        connect(web, SIGNAL(reply(SReq*)), SLOT(worker_reply(SReq*)));
     }
 
     // set up timer
@@ -68,17 +70,22 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    SRequest*    req = new SRequest;
+    SReq*   req = new SReq;
 
     req->url = "http://tut.by/";
 
-    if(cnt % 3 == 0) emit worker_send(req);
+    if(cnt == 2) emit worker_send(req);
 
     if(cnt >= 10) emit worker_die();
 
 }
 
+void CDbc::worker_reply(SReq* req){
+    cout << "reply " << req->url << endl;
+}
+
 void CDbc::worker_finished(){
+    cout << "app die\n";
     QCoreApplication::quit();
 }
 

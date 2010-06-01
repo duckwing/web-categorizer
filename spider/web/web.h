@@ -9,6 +9,8 @@
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
 
+#include <QtCore/QThread>
+
 #include "request.h"
 
 class CWeb : public QObject {
@@ -16,7 +18,7 @@ class CWeb : public QObject {
 
 private:
 
-    QNetworkAccessManager       netman;
+    QNetworkAccessManager*      netman;
     QNetworkProxy               netproxy;
 
 public:
