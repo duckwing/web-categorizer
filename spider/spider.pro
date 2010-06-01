@@ -6,6 +6,7 @@ TARGET = spider
 CLASSES *= web/entry
 CLASSES *= web/utils
 CLASSES *= web/web
+CLASSES *= web/dbc
 
 CLASSES *= sql/sql_api
 CLASSES *= sql/sql_handle

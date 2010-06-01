@@ -6,15 +6,20 @@
 
 #include <QtCore/QCoreApplication>
 
+#include <QtCore/QTimer>
+
 
 class CDbc : public QCoreApplication {
     Q_OBJECT
 
 private:
 
+    QTimer          timer;
 
 public:
     CDbc ( int & argc, char ** argv );
+
+    virtual bool event(QEvent* e);
 
 private slots:
     void scheduler();

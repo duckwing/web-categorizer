@@ -2,7 +2,7 @@
 
 
 #include "utils.h"
-#include "web.h"
+#include "dbc.h"
 
 #include "../sql/sql_api.h"
 
@@ -11,12 +11,11 @@ int main(int argc, char** argv){
 
     try {
 
-#if 0
-        CWeb                web(argc, argv);
+        CDbc        dbc(argc, argv);
 
         QCoreApplication::exec();
 
-#endif
+#if 0
 
         SqlEnv      env;
         SqlConn     dbc(env);
@@ -61,6 +60,7 @@ int main(int argc, char** argv){
             }
 
         }
+#endif
     }
     catch(SqlException e){
         cout << "ERROR: " << e.message() << endl;
