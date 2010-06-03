@@ -3,11 +3,11 @@
 TEMPLATE = app
 TARGET = spider
 
-CLASSES *= entry
-CLASSES *= utils
-CLASSES *= request
+CLASSES *= spider
 CLASSES *= web
 CLASSES *= dbc
+
+PRECOMPILED_HEADER = spider.h
 
 #error($$CONFIG)
 
@@ -15,7 +15,7 @@ QT -= gui
 QT += network sql
 
 CONFIG = debug warn_on
-CONFIG *= console qt
+CONFIG *= console qt precompile_header
 CONFIG *= exceptions stl mmx sse
 
 ####### output files

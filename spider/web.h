@@ -2,10 +2,7 @@
 #ifndef __WEB_H__
 #define __WEB_H__
 
-#include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkRequest>
-#include <QtNetwork/QNetworkReply>
-#include <QtNetwork/QNetworkProxy>
+#include "spider.h"
 
 class CWeb : public QObject {
     Q_OBJECT

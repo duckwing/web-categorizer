@@ -1,10 +1,6 @@
 
 
 #include "dbc.h"
-#include "utils.h"
-
-#include <QtCore/QTimer>
-#include <QtCore/QThread>
 
 CDbc::CDbc() :
     QObject ()

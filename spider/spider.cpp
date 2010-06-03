@@ -1,11 +1,6 @@
 
 
-#include "utils.h"
-
-#include <QtCore/QVariant>
-
-#include <QtSql/QSqlDatabase>
-#include <QtSql/QSqlQuery>
+#include "spider.h"
 
 int main(int argc, char** argv){
 

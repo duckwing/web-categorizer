@@ -1,9 +1,6 @@
 
 
 #include "web.h"
-#include "utils.h"
-
-#include <QtCore/QThread>
 
 CWeb::CWeb() :
     QObject (),

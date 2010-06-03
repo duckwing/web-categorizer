@@ -2,7 +2,7 @@
 #ifndef __DBC_H__
 #define __DBC_H__
 
-#include <QtCore/QObject>
+#include "spider.h"
 
 class CDbc : public QObject {
     Q_OBJECT
