@@ -13,6 +13,14 @@ CWeb::CWeb() :
 
 CWeb::~CWeb(){
     cout << "web dies\n";
+
+    {
+        map<QNetworkReply*, CRequest*>::iterator        i, i2;
+
+        for(i = reply_map.begin(), i2 = reply_map.end(); i != i2; i++){
+            delete i->second;
+        }
+    }
 }
 
 void CWeb::request_finished(QNetworkReply * r){
@@ -35,7 +43,6 @@ void CWeb::request_finished(QNetworkReply * r){
 
     r->deleteLater();
 
-    req->setParent(0);
     emit reply(req);
 }
 
@@ -59,8 +66,6 @@ void CWeb::start(){
 
 void CWeb::request(CRequest *req){
     cout << "incoming: " << req->url.toString().toAscii().data() << endl;
-
-    req->setParent(this);
 
     QNetworkReply *r = netman->get(QNetworkRequest(req->url));
 
