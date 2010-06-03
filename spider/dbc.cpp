@@ -85,6 +85,8 @@ void CDbc::scheduler(){
         return;
     }
 
+    cout << "timer\n";
+
     return ;
 
 
