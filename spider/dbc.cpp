@@ -110,7 +110,7 @@ void CDbc::scheduler(){
             emit request(req);
         }
 
-        q1->clear();
+        q1->finish();
     }
 }
 
