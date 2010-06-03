@@ -13,6 +13,8 @@ private:
     QSqlQuery       *q1;
     QSqlQuery       *q2;
 
+    int             req_avail;
+
     bool open_db();
 
 private slots:

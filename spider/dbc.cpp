@@ -6,7 +6,8 @@ CDbc::CDbc() :
     QObject (),
 
     q1(0),
-    q2(0)
+    q2(0),
+    req_avail(5)
 {
 }
 
@@ -72,6 +73,7 @@ void CDbc::reply(CRequest* req){
         << "(" << req->http_status << " " << req->http_reason.toAscii().data() << ")" << endl;
 
     delete req;
+    req_avail++;
 }
 
 void CDbc::scheduler(){
@@ -100,6 +102,11 @@ void CDbc::scheduler(){
         QString     url = q1->value(1).toString();
 
         cout << id << ": " << url.toAscii().data() << endl;
+
+        CRequest *req = new CRequest();
+        req->url = url;
+
+        emit request(req);
     }
 }
 
