@@ -11,7 +11,7 @@ public:
 
     int         http_status;
     QString     http_reason;
-    QString     redirect;
+    QString     http_redirect;
 
 };
 
