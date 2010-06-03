@@ -58,7 +58,7 @@ void CDbc::start(){
     // setup timer
     QTimer* timer = new QTimer(this);
     DIRECT_CONNECT(timer, timeout, this, scheduler, ());
-    timer->start(1000);
+    timer->start(10000);
 
     // setup the database
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
