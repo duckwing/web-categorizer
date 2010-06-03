@@ -69,7 +69,7 @@ void CDbc::start(){
 }
 
 void CDbc::reply(CRequest* req){
-    cout << "reply " << req->url.toString().toAscii().data()
+    cout << "reply " << req->id << " " << req->url.toString().toAscii().data()
         << "(" << req->http_status << ", "
         << req->http_reason.toAscii().data() << ")" << endl;
 
