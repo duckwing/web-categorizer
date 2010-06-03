@@ -3,7 +3,10 @@
 #include "dbc.h"
 
 CDbc::CDbc() :
-    QObject ()
+    QObject (),
+
+    q1(0),
+    q2(0)
 {
 }
 
