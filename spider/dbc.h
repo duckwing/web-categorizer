@@ -10,6 +10,10 @@ class CDbc : public QObject {
     Q_OBJECT
 
 private:
+    QSqlQuery       *q1;
+    QSqlQuery       *q2;
+
+    bool open_db();
 
 private slots:
     void scheduler();
@@ -26,7 +30,7 @@ public:
 
 public slots:
     void start();
-    void stop();
+    //void stop();
 
 //
 // request/reply

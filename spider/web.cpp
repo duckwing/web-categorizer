@@ -34,6 +34,8 @@ void CWeb::request_finished(QNetworkReply * r){
     req->http_reason = r->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
 
     r->deleteLater();
+
+    req->setParent(0);
     emit reply(req);
 }
 
@@ -57,6 +59,8 @@ void CWeb::start(){
 
 void CWeb::request(CRequest *req){
     cout << "incoming: " << req->url.toString().toAscii().data() << endl;
+
+    req->setParent(this);
 
     QNetworkReply *r = netman->get(QNetworkRequest(req->url));
 
