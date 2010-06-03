@@ -17,19 +17,24 @@ private slots:
 public:
     CDbc ();
 
-    // control stuff
+//
+// start/stop
+//
 
 public slots:
     void start();
     void stop();
 
-    // data exchange
+//
+// request/reply
+//
+
+signals:
+    void request();
 
 public slots:
     void reply();
 
-signals:
-    void request();
 };
 
 #endif // __DBC_H__

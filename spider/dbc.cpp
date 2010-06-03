@@ -14,13 +14,15 @@ CDbc::CDbc() :
 void CDbc::start(){
     // setup timer
     QTimer* timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), SLOT(scheduler()));
+    DIRECT_CONNECT(timer, timeout, this, scheduler, ());
     timer->start(1000);
 }
 
 void CDbc::stop(){
+
+    cout << "dbc stop\n";
+
     this->thread()->quit();
-    delete this;
 }
 
 void CDbc::reply(){
@@ -34,7 +36,7 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    if(cnt == 2) emit request();
+    if(cnt == 4) stop();
 }
 
 

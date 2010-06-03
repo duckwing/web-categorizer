@@ -2,32 +2,57 @@
 
 #include "spider.h"
 
+#include "web.h"
+#include "dbc.h"
+
+
 int main(int argc, char** argv){
 
-    try {
+    QCoreApplication        app(argc, argv);
 
-        QSqlDatabase   db = QSqlDatabase::addDatabase("QPSQL");
+    CWeb                    web;
+    CDbc                    dbc;
+    QThread                 worker;
 
-        db.setHostName("127.0.0.1");
-        db.setDatabaseName("postgres");
+    // connect
+    QUEUED_CONNECT(&web, start, &dbc, start, ());
+    QUEUED_CONNECT(&worker, finished, &web, stop, ());
 
-        bool op = db.open("spider", "");
+    // move dbc to another thread
+    dbc.moveToThread(&worker);
 
-        cout << op << endl;
+    // start the thread
+    worker.start();
 
-        {
-            QSqlQuery q = db.exec("SELECT id, url FROM urls");
+    // send the start signal to dbc
+    web.send_start();
 
-            while(q.next()){
-                cout << q.value(0).toInt() << ": " << q.value(1).toString().toAscii().data() << endl;
-            }
+    // exec local event loop
+    QCoreApplication::exec();
+
+    cout << "bye\n";
+
+#if 0
+
+    QSqlDatabase   db = QSqlDatabase::addDatabase("QPSQL");
+
+    db.setHostName("127.0.0.1");
+    db.setDatabaseName("postgres");
+
+    bool op = db.open("spider", "");
+
+    cout << op << endl;
+
+    {
+        QSqlQuery q = db.exec("SELECT id, url FROM urls");
+
+        while(q.next()){
+            cout << q.value(0).toInt() << ": " << q.value(1).toString().toAscii().data() << endl;
         }
+    }
 
-        db.close();
-    }
-    catch(const char* msg){
-        cout << "FATAL: " << msg << endl;
-    }
+    db.close();
+#endif
 
     return 0;
 }

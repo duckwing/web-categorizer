@@ -15,10 +15,24 @@ private:
 public:
     CWeb ();
 
+    void send_start();
+
+//
+// start/stop
+//
+
+signals:
+    void start();
+
+public slots:
+    void stop();
+
+//
+// request/reply
+//
+
 public slots:
     void request();
-
-    void die();
 
 signals:
     void reply();

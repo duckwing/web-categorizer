@@ -14,7 +14,15 @@ CWeb::CWeb() :
     // setup network
     //netman->setProxy(netproxy);
     //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
+
+    emit start();
 }
+
+void CWeb::send_start(){
+    cout << "web send start\n";
+    emit start();
+}
+
 
 //
 // slots
@@ -25,11 +33,10 @@ void CWeb::request(){
 
 }
 
-void CWeb::die(){
-    cout << "web die\n";
-
+void CWeb::stop(){
+    cout << "web stop\n";
     this->thread()->quit();
-    delete this;
+    //QCoreApplication::quit();
 }
 
 
