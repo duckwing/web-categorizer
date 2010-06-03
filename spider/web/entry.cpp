@@ -1,21 +1,37 @@
 
 
-
 #include "utils.h"
 #include "dbc.h"
 
 #include "../sql/sql_api.h"
 
 #include <QtCore/QStringList>
+
 #include <QtSql/QSqlDatabase>
+#include <QtSql/QSqlQuery>
 
 int main(int argc, char** argv){
 
     try {
 
-        QStringList list = QSqlDatabase::drivers();
+        QSqlDatabase   db = QSqlDatabase::addDatabase("QPSQL");
 
-        cout << list.join(" ").toAscii().data() << endl;
+        db.setHostName("127.0.0.1");
+        db.setDatabaseName("postgres");
+
+        bool op = db.open("spider", "");
+
+        cout << op << endl;
+
+        {
+            QSqlQuery q = db.exec("SELECT id, url FROM urls");
+
+            while(q.next()){
+                cout << q.value(0).toInt() << ": " << q.value(1).toString().toAscii().data() << endl;
+            }
+        }
+
+        db.close();
 
         
 
