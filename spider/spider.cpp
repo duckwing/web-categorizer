@@ -10,12 +10,13 @@ int main(int argc, char** argv){
 
     QCoreApplication        app(argc, argv);
 
-    CWeb                    web;
-    CDbc                    dbc;
     QThread                 worker;
 
+    CWeb                    *web = new CWeb();
+    CDbc                    *dbc = new CDbc();
+
     // connect
-    QUEUED_CONNECT(&web, start, &dbc, start, ());
+    QUEUED_CONNECT(&web, started, &dbc, start, ());
     QUEUED_CONNECT(&worker, finished, &web, deleteLater, ());
 
     DIRECT_CONNECT(&dbc, destroyed, &worker, quit, ());
@@ -31,7 +32,7 @@ int main(int argc, char** argv){
     worker.start();
 
     // send the start signal to dbc
-    web.send_start();
+    web.start();
 
     // exec local event loop
     QCoreApplication::exec();

@@ -23,11 +23,12 @@ public:
     CWeb ();
     ~CWeb();
 
-    void start();
-
 //
 // start/stop
 //
+
+public slot:
+    void start();
 
 signals:
     void started();
