@@ -13,6 +13,9 @@ CWeb::CWeb() :
 
 CWeb::~CWeb(){
     cout << "web dies\n";
+
+    netman->setParent(0);
+    delete netman;
 }
 
 void CWeb::request_finished(QNetworkReply * r){
