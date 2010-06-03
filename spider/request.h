@@ -12,6 +12,9 @@ public:
 
     QUrl        url;
 
+    int         http_status;
+    QString     http_reason;
+
 };
 
 

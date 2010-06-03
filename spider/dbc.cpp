@@ -30,7 +30,8 @@ void CDbc::stop(){
 }
 
 void CDbc::reply(CRequest* req){
-    cout << "reply " << req->url.toString().toAscii().data() << endl;
+    cout << "reply " << req->url.toString().toAscii().data()
+        << "(" << req->http_status << " " << req->http_reason.toAscii().data() << ")" << endl;
 }
 
 void CDbc::scheduler(){
