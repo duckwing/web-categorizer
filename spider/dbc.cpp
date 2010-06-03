@@ -22,7 +22,9 @@ void CDbc::stop(){
 
     cout << "dbc stop\n";
 
-    this->thread()->quit();
+    //this->thread()->quit();
+
+    deleteLater();
 }
 
 void CDbc::reply(CRequest* req){

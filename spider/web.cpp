@@ -54,10 +54,4 @@ void CWeb::request(CRequest *req){
     reply_map.insert(p);
 }
 
-void CWeb::stop(){
-    cout << "web stop\n";
-    this->thread()->quit();
-    //QCoreApplication::quit();
-}
-
 

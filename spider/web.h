@@ -31,9 +31,6 @@ public:
 signals:
     void start();
 
-public slots:
-    void stop();
-
 //
 // request/reply
 //

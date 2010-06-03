@@ -16,7 +16,10 @@ int main(int argc, char** argv){
 
     // connect
     QUEUED_CONNECT(&web, start, &dbc, start, ());
-    QUEUED_CONNECT(&worker, finished, &web, stop, ());
+    QUEUED_CONNECT(&worker, finished, &web, deleteLater, ());
+
+    DIRECT_CONNECT(&dbc, destroyed, &worker, quit, ());
+    DIRECT_CONNECT(&web, destroyed, &app, quit, ());
 
     QUEUED_CONNECT(&dbc, request, &web, request, (CRequest*));
     QUEUED_CONNECT(&web, reply  , &dbc, reply  , (CRequest*));
