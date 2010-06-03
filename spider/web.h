@@ -27,7 +27,7 @@ public:
 // start/stop
 //
 
-public slot:
+public slots:
     void start();
 
 signals:
