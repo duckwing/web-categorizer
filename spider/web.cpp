@@ -24,23 +24,40 @@ CWeb::~CWeb(){
 }
 
 void CWeb::request_finished(QNetworkReply * r){
-    map<QNetworkReply*, CRequest*>::iterator    it = reply_map.find(r);
+    CRequest *req = 0;
 
-    if(it == reply_map.end()){
-        cout << "map error\n";
-        return;
+    {
+        map<QNetworkReply*, CRequest*>::iterator    it = reply_map.find(r);
+
+        if(it == reply_map.end()){
+            cout << "map error\n";
+            return;
+        }
+
+        req = it->second;
+
+        reply_map.erase(it);
     }
 
-    CRequest *req = it->second;
+    // automatically follow redirects
+    {
+        QVariant var = r->attribute(QNetworkRequest::RedirectionTargetAttribute);
 
-    reply_map.erase(it);
+        if(var.isValid()){
+            r->deleteLater();
+
+            r = netman->get(QNetworkRequest(var.toUrl()));
+
+            pair<QNetworkReply*, CRequest*>     p(r, req);
+            reply_map.insert(p);
+            return;
+        }
+    }
 
     // do something
-    QVariant    v;
-
     req->http_status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     req->http_reason = r->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
-    req->http_redirect = r->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl().toString();
+    req->http_redirect = QString(); //r->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl().toString();
 
     r->deleteLater();
 
