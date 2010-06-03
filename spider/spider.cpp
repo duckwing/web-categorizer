@@ -18,6 +18,9 @@ int main(int argc, char** argv){
     QUEUED_CONNECT(&web, start, &dbc, start, ());
     QUEUED_CONNECT(&worker, finished, &web, stop, ());
 
+    QUEUED_CONNECT(&dbc, request, &web, request, (CRequest*));
+    QUEUED_CONNECT(&web, reply  , &dbc, reply  , (CRequest*));
+
     // move dbc to another thread
     dbc.moveToThread(&worker);
 

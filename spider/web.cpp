@@ -11,11 +11,28 @@ CWeb::CWeb() :
 {
     netman = new QNetworkAccessManager(this);
 
+    DIRECT_CONNECT(netman, finished, this, request_finished, (QNetworkReply*));
+
     // setup network
     //netman->setProxy(netproxy);
     //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
+}
 
-    emit start();
+void CWeb::request_finished(QNetworkReply * r){
+    map<QNetworkReply*, CRequest*>::iterator    it = reply_map.find(r);
+
+    if(it == reply_map.end()){
+        cout << "map error\n";
+        return;
+    }
+
+    CRequest *req = it->second;
+
+    // do something
+
+    r->deleteLater();
+
+    emit reply(req);
 }
 
 void CWeb::send_start(){
@@ -28,9 +45,13 @@ void CWeb::send_start(){
 // slots
 //
 
-void CWeb::request(){
-    cout << "incoming!!! " << endl;
+void CWeb::request(CRequest *req){
+    cout << "incoming: " << req->url.toString().toAscii().data() << endl;
 
+    QNetworkReply *r = netman->get(QNetworkRequest(req->url));
+
+    pair<QNetworkReply*, CRequest*>     p(r, req);
+    reply_map.insert(p);
 }
 
 void CWeb::stop(){

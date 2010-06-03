@@ -25,8 +25,8 @@ void CDbc::stop(){
     this->thread()->quit();
 }
 
-void CDbc::reply(){
-    cout << "reply " << endl;
+void CDbc::reply(CRequest* req){
+    cout << "reply " << req->url.toString().toAscii().data() << endl;
 }
 
 void CDbc::scheduler(){
@@ -36,11 +36,15 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    if(cnt % 4 == 0){
+    if(cnt == 3){
         CRequest    *req = new CRequest(this);
 
-        emit request();
+        req->url = QUrl("http://tut.by/");
+
+        emit request(req);
     }
+
+    if(cnt == 10) stop();
 }
 
 

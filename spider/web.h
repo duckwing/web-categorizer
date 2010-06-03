@@ -11,8 +11,13 @@ class CWeb : public QObject {
 
 private:
 
-    QNetworkAccessManager*      netman;
-    QNetworkProxy               netproxy;
+    QNetworkAccessManager*              netman;
+    QNetworkProxy                       netproxy;
+
+    map<QNetworkReply*, CRequest*>      reply_map;
+
+private slots:
+    void request_finished(QNetworkReply * reply);
 
 public:
     CWeb ();
