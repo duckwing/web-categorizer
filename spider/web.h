@@ -4,6 +4,8 @@
 
 #include "spider.h"
 
+#include "request.h"
+
 class CWeb : public QObject {
     Q_OBJECT
 
@@ -32,10 +34,10 @@ public slots:
 //
 
 public slots:
-    void request();
+    void request(CRequest *req);
 
 signals:
-    void reply();
+    void reply(CRequest *req);
 };
 
 #endif // __WEB_H__

@@ -36,7 +36,11 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    if(cnt == 4) stop();
+    if(cnt % 4 == 0){
+        CRequest    *req = new CRequest(this);
+
+        emit request();
+    }
 }
 
 

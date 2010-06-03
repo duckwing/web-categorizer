@@ -8,6 +8,8 @@ class CRequest : public QObject {
     Q_OBJECT
 
 public:
+    CRequest ( QObject * parent = 0 );
+
     QUrl        url;
 
 };

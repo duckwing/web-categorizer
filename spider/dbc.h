@@ -4,6 +4,8 @@
 
 #include "spider.h"
 
+#include "request.h"
+
 class CDbc : public QObject {
     Q_OBJECT
 
@@ -30,10 +32,10 @@ public slots:
 //
 
 signals:
-    void request();
+    void request(CRequest* req);
 
 public slots:
-    void reply();
+    void reply(CRequest* req);
 
 };
 
