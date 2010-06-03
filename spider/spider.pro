@@ -3,27 +3,16 @@
 TEMPLATE = app
 TARGET = spider
 
-CLASSES *= web/entry
-CLASSES *= web/utils
-CLASSES *= web/request
-CLASSES *= web/web
-CLASSES *= web/dbc
-
-CLASSES *= sql/sql_api
-CLASSES *= sql/sql_handle
-CLASSES *= sql/sql_exc
-CLASSES *= sql/sql_env
-CLASSES *= sql/sql_conn
-CLASSES *= sql/sql_stmt
-
-HEADER *= sql/sqlapi.in
+CLASSES *= entry
+CLASSES *= utils
+CLASSES *= request
+CLASSES *= web
+CLASSES *= dbc
 
 #error($$CONFIG)
 
 QT -= gui
 QT += network sql
-
-QMAKE_LIBS += libodbc32
 
 CONFIG = debug warn_on
 CONFIG *= console qt

@@ -3,9 +3,8 @@
 #include "dbc.h"
 #include "utils.h"
 
-#if defined(QT_CORE_LIB)
-
 #include <QtCore/QTimer>
+#include <QtCore/QThread>
 
 CDbc::CDbc() :
     QObject ()
@@ -28,8 +27,8 @@ void CDbc::stop(){
     delete this;
 }
 
-void CDbc::reply(SReq* req){
-    cout << "reply " << req->url << endl;
+void CDbc::reply(){
+    cout << "reply " << endl;
 }
 
 void CDbc::scheduler(){
@@ -39,13 +38,7 @@ void CDbc::scheduler(){
 
     cout << "timer" << cnt << endl;
 
-    SReq*   req = new SReq;
-
-    req->url = "http://tut.by/";
-
-    if(cnt == 2) emit request(req);
+    if(cnt == 2) emit request();
 }
-
-#endif
 
 

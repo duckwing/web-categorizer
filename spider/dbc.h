@@ -2,11 +2,7 @@
 #ifndef __DBC_H__
 #define __DBC_H__
 
-#if defined(QT_CORE_LIB)
-
 #include <QtCore/QObject>
-
-#include "request.h"
 
 class CDbc : public QObject {
     Q_OBJECT
@@ -30,13 +26,12 @@ public slots:
     // data exchange
 
 public slots:
-    void reply(SReq* req);
+    void reply();
 
 signals:
-    void request(SReq* data);
+    void request();
 };
 
-#endif // defined(QT_CORE_LIB)
 #endif // __DBC_H__
 
 

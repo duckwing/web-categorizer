@@ -2,18 +2,14 @@
 #ifndef __WEB_H__
 #define __WEB_H__
 
-#if defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
+#include <QtCore/QCoreApplication>
 
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
 
-#include <QtCore/QThread>
-
-#include "request.h"
-
-class CWeb : public QObject {
+class CWeb : public QCoreApplication {
     Q_OBJECT
 
 private:
@@ -22,23 +18,17 @@ private:
     QNetworkProxy               netproxy;
 
 public:
-    CWeb ();
-
-    // children's interface
-    QNetworkAccessManager& manager();
-
-    void request_completed(SReq* req);
+    CWeb (int & argc, char ** argv);
 
 public slots:
-    void request(SReq* req);
+    void request();
 
     void die();
 
 signals:
-    void reply(SReq* req);
+    void reply();
 };
 
-#endif // defined(QT_CORE_LIB) && defined(QT_NETWORK_LIB)
 #endif // __WEB_H__
 
 
