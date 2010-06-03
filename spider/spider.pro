@@ -6,6 +6,7 @@ TARGET = spider
 CLASSES *= spider
 CLASSES *= web
 CLASSES *= dbc
+CLASSES *= request
 
 PRECOMPILED_HEADER = spider.h
 
