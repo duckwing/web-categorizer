@@ -76,7 +76,7 @@ void CDbc::reply(CRequest* req){
 
 void CDbc::scheduler(){
     {
-        QFile       file("spider_stop.bat");
+        QFile       file("spider_stop");
         if(file.exists()){
             cout << "dbc die\n";
             deleteLater();
