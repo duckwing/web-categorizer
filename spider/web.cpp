@@ -3,8 +3,10 @@
 #include "web.h"
 #include "utils.h"
 
-CWeb::CWeb(int & argc, char ** argv) :
-    QCoreApplication (argc, argv),
+#include <QtCore/QThread>
+
+CWeb::CWeb() :
+    QObject (),
 
     netman(0),
     netproxy(QNetworkProxy::Socks5Proxy, "127.0.0.1", 4000)
@@ -29,7 +31,7 @@ void CWeb::request(){
 void CWeb::die(){
     cout << "web die\n";
 
-    this->quit();
+    this->thread()->quit();
     delete this;
 }
 

@@ -2,14 +2,12 @@
 #ifndef __WEB_H__
 #define __WEB_H__
 
-#include <QtCore/QCoreApplication>
-
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkProxy>
 
-class CWeb : public QCoreApplication {
+class CWeb : public QObject {
     Q_OBJECT
 
 private:
@@ -18,7 +16,7 @@ private:
     QNetworkProxy               netproxy;
 
 public:
-    CWeb (int & argc, char ** argv);
+    CWeb ();
 
 public slots:
     void request();
