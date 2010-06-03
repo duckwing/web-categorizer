@@ -14,7 +14,7 @@ CWeb::CWeb() :
 CWeb::~CWeb(){
     cout << "web dies\n";
 
-    cout << "netman parent: " << (void*)netman->parent() << endl;
+    cout << "netman parent: " << (void*)netman->parent() << " vs " << (void*)this << endl;
 
     {
         map<QNetworkReply*, CRequest*>::iterator    it, it2;
