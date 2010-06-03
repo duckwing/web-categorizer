@@ -92,20 +92,25 @@ void CDbc::scheduler(){
 
     cout << "timer\n";
 
-    if(!q1->exec()){
-        cerr << "ERROR: failed to execute q1: " << q1->lastError().text().toAscii().data() << endl;
-        return;
-    }
+    if(req_avail > 0){
+        if(!q1->exec()){
+            cerr << "ERROR: failed to execute q1: " << q1->lastError().text().toAscii().data() << endl;
+            return;
+        }
 
-    while(q1->next()){
+        while(q1->next()){
+            if(req_avail <= 0) break;
 
-        //cout << id << ": " << url.toAscii().data() << endl;
+            req_avail--;
+            CRequest *req = new CRequest();
 
-        CRequest *req = new CRequest();
-        req->id = q1->value(0).toInt();
-        req->url = q1->value(1).toString();
+            req->id = q1->value(0).toInt();
+            req->url = q1->value(1).toString();
 
-        emit request(req);
+            emit request(req);
+        }
+
+        q1->clear();
     }
 }
 
