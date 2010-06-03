@@ -85,6 +85,9 @@ void CDbc::scheduler(){
         return;
     }
 
+    return ;
+
+
     q1->exec();
     while(q1->next()){
         int         id = q1->value(0).toInt();
