@@ -4,16 +4,14 @@
 
 #include "spider.h"
 
-class CRequest : public QObject {
-    Q_OBJECT
-
+class CRequest {
 public:
-    CRequest ( QObject * parent = 0 );
-
+    int         id;
     QUrl        url;
 
     int         http_status;
     QString     http_reason;
+    QString     redirect;
 
 };
 

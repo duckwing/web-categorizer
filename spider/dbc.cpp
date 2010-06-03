@@ -98,13 +98,12 @@ void CDbc::scheduler(){
     }
 
     while(q1->next()){
-        int         id = q1->value(0).toInt();
-        QString     url = q1->value(1).toString();
 
-        cout << id << ": " << url.toAscii().data() << endl;
+        //cout << id << ": " << url.toAscii().data() << endl;
 
         CRequest *req = new CRequest();
-        req->url = url;
+        req->id = q1->value(0).toInt();
+        req->url = q1->value(1).toString();
 
         emit request(req);
     }
