@@ -21,15 +21,16 @@ private slots:
 
 public:
     CWeb ();
+    ~CWeb();
 
-    void send_start();
+    void start();
 
 //
 // start/stop
 //
 
 signals:
-    void start();
+    void started();
 
 //
 // request/reply

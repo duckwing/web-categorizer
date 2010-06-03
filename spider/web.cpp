@@ -9,13 +9,10 @@ CWeb::CWeb() :
     netproxy(QNetworkProxy::Socks5Proxy, "127.0.0.1", 4000)
 
 {
-    netman = new QNetworkAccessManager(this);
+}
 
-    DIRECT_CONNECT(netman, finished, this, request_finished, (QNetworkReply*));
-
-    // setup network
-    //netman->setProxy(netproxy);
-    //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
+CWeb::~CWeb(){
+    cout << "web dies\n";
 }
 
 void CWeb::request_finished(QNetworkReply * r){
@@ -35,9 +32,17 @@ void CWeb::request_finished(QNetworkReply * r){
     emit reply(req);
 }
 
-void CWeb::send_start(){
+void CWeb::start(){
+    netman = new QNetworkAccessManager(this);
+
+    DIRECT_CONNECT(netman, finished, this, request_finished, (QNetworkReply*));
+
+    // setup network
+    //netman->setProxy(netproxy);
+    //netproxy.setCapabilities(QNetworkProxy::HostNameLookupCapability);
+
     cout << "web send start\n";
-    emit start();
+    emit started();
 }
 
 

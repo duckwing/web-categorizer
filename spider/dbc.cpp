@@ -7,6 +7,10 @@ CDbc::CDbc() :
 {
 }
 
+CDbc::~CDbc(){
+    cout << "dbc died\n";
+}
+
 //
 // slots
 //
@@ -21,8 +25,6 @@ void CDbc::start(){
 void CDbc::stop(){
 
     cout << "dbc stop\n";
-
-    //this->thread()->quit();
 
     deleteLater();
 }

@@ -18,6 +18,7 @@ private slots:
 
 public:
     CDbc ();
+    ~CDbc();
 
 //
 // start/stop
