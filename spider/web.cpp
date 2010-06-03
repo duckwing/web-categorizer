@@ -57,7 +57,6 @@ void CWeb::request_finished(QNetworkReply * r){
     // do something
     req->http_status = r->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     req->http_reason = r->attribute(QNetworkRequest::HttpReasonPhraseAttribute).toString();
-    req->http_redirect = QString(); //r->attribute(QNetworkRequest::RedirectionTargetAttribute).toUrl().toString();
 
     r->deleteLater();
 

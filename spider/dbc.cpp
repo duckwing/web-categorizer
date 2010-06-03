@@ -37,7 +37,7 @@ bool CDbc::open_db(){
 
     if(q2 == 0){
         q2 = new QSqlQuery(db);
-        if(!q2->prepare("SELECT id, url FROM urls WHERE NOT EXISTS (SELECT 1 FROM pagedata WHERE urls.id = pagedata.page_id)")){
+        if(!q2->prepare("INSERT INTO pagedata (page_id, code) VALUES (?, ?)")){
             cerr << "ERROR: failed to prepare the 2nd query: " << q2->lastError().text().toAscii().data() << endl;
 
             delete q2;
@@ -71,8 +71,19 @@ void CDbc::start(){
 void CDbc::reply(CRequest* req){
     cout << "reply " << req->url.toString().toAscii().data()
         << "(" << req->http_status << ", "
-        << req->http_reason.toAscii().data() << ", "
-        << req->http_redirect.toAscii().data() << ")" << endl;
+        << req->http_reason.toAscii().data() << ")" << endl;
+
+    if(open_db()){
+        q2->bindValue(0, req->id);
+        q2->bindValue(1, req->http_status);
+
+        if(!q2->exec()){
+            cerr << "ERROR: failed to execute q2: " << q2->lastError().text().toAscii().data() << endl;
+            return;
+        }
+
+        q2->finish();
+    }
 
     delete req;
     req_avail++;
