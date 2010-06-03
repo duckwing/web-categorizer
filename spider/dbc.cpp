@@ -87,10 +87,11 @@ void CDbc::scheduler(){
 
     cout << "timer\n";
 
-    return ;
+    if(!q1->exec()){
+        cerr << "ERROR: failed to execute q1: " << q1->lastError().text().toAscii().data() << endl;
+        return;
+    }
 
-
-    q1->exec();
     while(q1->next()){
         int         id = q1->value(0).toInt();
         QString     url = q1->value(1).toString();
