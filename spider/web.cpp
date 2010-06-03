@@ -41,6 +41,8 @@ void CWeb::request_finished(QNetworkReply * r){
 
     CRequest *req = it->second;
 
+    reply_map.erase(it);
+
     // do something
 
     r->deleteLater();
