@@ -14,6 +14,7 @@ CWeb::CWeb() :
 CWeb::~CWeb(){
     cout << "web dies\n";
 
+    cout << "netman: " << (void*)netman << endl;
     cout << "netman parent: " << (void*)netman->parent() << " vs " << (void*)this << endl;
 
     {
