@@ -21,7 +21,7 @@ HEADER *= sql/sqlapi.in
 #error($$CONFIG)
 
 QT -= gui
-QT += network
+QT += network sql
 
 QMAKE_LIBS += libodbc32
 

@@ -6,16 +6,24 @@
 
 #include "../sql/sql_api.h"
 
+#include <QtCore/QStringList>
+#include <QtSql/QSqlDatabase>
 
 int main(int argc, char** argv){
 
     try {
 
+        QStringList list = QSqlDatabase::drivers();
+
+        cout << list.join(" ").toAscii().data() << endl;
+
+        
+
+#if 0
         CDbc        dbc(argc, argv);
 
         QCoreApplication::exec();
 
-#if 0
 
         SqlEnv      env;
         SqlConn     dbc(env);
